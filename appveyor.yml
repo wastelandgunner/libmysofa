@@ -1,0 +1,27 @@
+
+version: 1.0.{build}
+configuration: Release
+shallow_clone: true
+
+
+environment:
+  matrix:
+  - GENERATOR: "Visual Studio 14"
+  - GENERATOR: "Visual Studio 14 Win64"
+
+nuget:
+  account_feed: true
+  project_feed: true
+
+before_build:
+  - cmake -DBUILD_TESTS=off -DCMAKE_INSTALL_PREFIX=%P% -G"%GENERATOR%"
+build:
+  project: libmysofa.sln
+  verbosity: normal
+#build_script:
+#  - echo "skipped"
+#after_build:
+#  - 7z a msvc.zip *.sln *.vcxproj* */*.vcxproj* zlib*
+#artifacts:
+##- path: windows\bin
+#- path: msvc.zip
